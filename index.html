@@ -5,40 +5,217 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Croftoria SMP | Resmi Web Sitesi</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: #0b0c10; color: #c5c6c7; text-align: center; }
-        header { background: linear-gradient(rgba(11,12,16,0.8), rgba(11,12,16,0.9)), url('https://images.unsplash.com/photo-1607988795691-3d0147b43231?q=80&w=1920') no-repeat center/cover; padding: 120px 20px; border-bottom: 3px solid #66fcf1; }
-        h1 { font-size: 3.5rem; color: #66fcf1; text-shadow: 0 0 15px rgba(102,252,241,0.5); }
-        .ip-box { background: #1f2833; color: #66fcf1; padding: 15px 30px; border-radius: 30px; font-size: 1.4rem; font-family: monospace; font-weight: bold; border: 2px solid #66fcf1; display: inline-block; margin-top: 20px; }
-        .container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
-        .features { display: flex; justify-content: space-between; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
-        .card { background: #1f2833; padding: 25px; border-radius: 12px; flex: 1; min-width: 250px; border: 1px solid #45f3ff; }
-        .card h3 { color: #66fcf1; margin-bottom: 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Arka Plan ve Hero Alanı (Einstein Gitti, Efsane MC Görseli Geldi) */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(13, 17, 23, 1)), 
+                        url('https://images.alphacoders.com/134/1344604.png') no-repeat center center/cover;
+            padding: 20px;
+        }
+
+        /* Üst Menü - Mağaza Butonunun Olduğu Yer */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .shop-btn {
+            background: linear-gradient(135deg, #ffcc00, #ff9900);
+            color: #000000;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.7);
+        }
+
+        /* Başlıklar */
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+        }
+
+        h1 span {
+            color: #00ffcc;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #00ffcc;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* IP Kopyalama Butonu */
+        .ip-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid #00ffcc;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .ip-box:hover {
+            background: #00ffcc;
+            color: #000000;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.6);
+            transform: scale(1.05);
+        }
+
+        /* Özellikler Bölümü */
+        .features {
+            max-width: 1200px;
+            margin: -50px auto 80px auto;
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #161b22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffcc;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: #00ffcc;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #8b949e;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8b949e;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>CROFTORIA SMP</h1>
-        <p style="color:#45f3ff; margin-top:10px;">Gelişmiş Survival Dünyasının Yeni Çağı</p>
-        <div class="ip-box">play.croftoria.com</div>
-    </header>
-    <div class="container">
-        <h2>Efsanevi Macera Başlıyor</h2>
-        <p style="margin-top:10px; line-height:1.6;">Sıradan sunuculardan sıkılanlar için tamamen optimize edilmiş adil bir SMP ortamı hazırladık.</p>
-        <div class="features">
-            <div class="card">
-                <h3>Gelişmiş Ekonomi</h3>
-                <p>Oyuncular arası küresel pazar ve güvenli ticaret mekanikleri.</p>
-            </div>
-            <div class="card">
-                <h3>Özel Görevler</h3>
-                <p>Sıkılmaya vakit bulamayacağınız ödüllü günlük ve haftalık görevler.</p>
-            </div>
-            <div class="card">
-                <h3>%100 Akıcılık</h3>
-                <p>Yüksek işlemci gücüyle sıfır TPS düşüşü ve kesintisiz performans.</p>
-            </div>
+
+    <!-- Üst Menü Çubuğu -->
+    <div class="navbar">
+        <div class="logo">Croftoria</div>
+        <div class="nav-buttons">
+            <!-- BURAYA SUNUCUNUN MARKET/BATİHOST LİNKİNİ YAZABİLİRSİN -->
+            <a href="https://croftoria.batıhost.net" target="_blank" class="shop-btn">🛒 MAĞAZA / VIP AL</a>
         </div>
     </div>
+
+    <!-- Ana Ekran -->
+    <div class="hero">
+        <h1>CROFTORIA <span>SMP</span></h1>
+        <p class="subtitle">Gelişmiş Survival Dünyasının Yeni Çağı</p>
+        
+        <!-- IP Kutusu -->
+        <div class="ip-box" onclick="copyIP()">play.croftoria.com</div>
+    </div>
+
+    <!-- Özellikler Kartları -->
+    <div class="features">
+        <div class="card">
+            <h3>Gelişmiş Ekonomi</h3>
+            <p>Oyuncular arası küresel pazar ve güvenli ticaret mekanikleriyle ekonominin hakimi ol.</p>
+        </div>
+        <div class="card">
+            <h3>Özel Görevler</h3>
+            <p>Sıkılmaya vakit bulamayacağın ödüllü günlük ve haftalık görevlerle macerayı katla.</p>
+        </div>
+        <div class="card">
+            <h3>%100 Akıcılık</h3>
+            <p>Yüksek işlemci gücüyle sıfır TPS düşüşü ve kesintisiz, adil bir SMP performansı.</p>
+        </div>
+    </div>
+
+    <!-- Alt Kısım -->
+    <footer>
+        &copy; 2026 Croftoria SMP. Tüm hakları saklıdır. <br>
+        Bu site bir YUMAN EDITS tasarımıdır.
+    </footer>
+
+    <!-- IP Kopyalama Scripti -->
+    <script>
+        function copyIP() {
+            const ip = "play.croftoria.com";
+            navigator.clipboard.writeText(ip);
+            alert("Sunucu IP adresi panoya kopyalandı! Oyuna giriş yapabilirsiniz.");
+        }
+    </script>
+
 </body>
 </html>
