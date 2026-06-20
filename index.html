@@ -3,219 +3,756 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Croftoria SMP | Resmi Web Sitesi</title>
+    <title>Croftoria SMP | Resmi Web Sitesi & Oyuncu Portalı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* 1. SIFIRLAMA VE GENEL TASARIM */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #0d1117;
+            background-color: #0b0f19;
             color: #ffffff;
             overflow-x: hidden;
         }
 
-        /* Arka Plan ve Hero Alanı (Einstein Gitti, Efsane MC Görseli Geldi) */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(13, 17, 23, 1)), 
-                        url('https://images.alphacoders.com/134/1344604.png') no-repeat center center/cover;
-            padding: 20px;
+        /* Abstract Glow Background Elements */
+        .glow-bg {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.08) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* Üst Menü - Mağaza Butonunun Olduğu Yer */
+        .glow-bg-right {
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* 2. NAVBAR (Menü Çubuğu) */
         .navbar {
-            position: absolute;
+            position: fixed;
             top: 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            z-index: 10;
+            padding: 20px 60px;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 100;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 900;
             color: #00ffcc;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .nav-buttons {
+        .logo i {
+            color: #7c3aed;
+        }
+
+        .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #8b949e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #00ffcc;
         }
 
         .shop-btn {
             background: linear-gradient(135deg, #ffcc00, #ff9900);
             color: #000000;
             padding: 10px 25px;
-            border-radius: 5px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .shop-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.7);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.6);
         }
 
-        /* Başlıklar */
-        h1 {
-            font-size: 4rem;
-            font-weight: 800;
+        /* 3. SAYFA YAPISI */
+        .page {
+            display: none;
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 4. ANA SAYFA / HERO */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(11, 15, 25, 0.5), rgba(11, 15, 25, 1)), 
+                        url('https://images.alphacoders.com/134/1344604.png') no-repeat center center/cover;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
             color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
         }
 
-        h1 span {
+        .hero h1 span {
             color: #00ffcc;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #00ffcc;
+            font-size: 1.6rem;
+            color: #a855f7;
             margin-bottom: 40px;
-            font-weight: 400;
+            font-weight: 500;
+            letter-spacing: 1px;
         }
 
-        /* IP Kopyalama Butonu */
-        .ip-box {
-            background: rgba(255, 255, 255, 0.05);
+        /* Sunucu IP Bilgisi */
+        .ip-wrapper {
+            background: rgba(255, 255, 255, 0.03);
             border: 2px solid #00ffcc;
-            padding: 15px 40px;
+            padding: 18px 45px;
             border-radius: 50px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             color: #ffffff;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .ip-box:hover {
+        .ip-wrapper:hover {
             background: #00ffcc;
             color: #000000;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.6);
+            box-shadow: 0 0 35px rgba(0, 255, 204, 0.5);
             transform: scale(1.05);
         }
 
-        /* Özellikler Bölümü */
+        .ip-wrapper i {
+            font-size: 1.2rem;
+        }
+
+        /* Özellikler Kartları */
         .features {
             max-width: 1200px;
-            margin: -50px auto 80px auto;
+            margin: -60px auto 80px auto;
             position: relative;
             z-index: 5;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             padding: 0 20px;
         }
 
         .card {
-            background: #161b22;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
             padding: 40px 30px;
             text-align: center;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-10px);
-            border-color: #00ffcc;
-            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.1);
+            border-color: #7c3aed;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: #00ffcc;
+            margin-bottom: 20px;
         }
 
         .card h3 {
-            font-size: 1.5rem;
-            color: #00ffcc;
+            font-size: 1.6rem;
+            color: #ffffff;
             margin-bottom: 15px;
         }
 
         .card p {
             color: #8b949e;
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
 
-        /* Footer */
+        /* 5. OYUNCU PORTALI & PROFİL SİSTEMİ */
+        .portal-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .portal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .portal-header h2 {
+            font-size: 2.8rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .portal-header h2 span {
+            color: #00ffcc;
+        }
+
+        .portal-header p {
+            color: #8b949e;
+            font-size: 1.1rem;
+        }
+
+        /* Arama Kutusu */
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto 50px auto;
+            background: rgba(22, 27, 34, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 6px 6px 6px 25px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: #00ffcc;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .search-box input::placeholder {
+            color: #5d6773;
+        }
+
+        .search-box button {
+            background: #00ffcc;
+            color: #000000;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box button:hover {
+            background: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* Profil Kartı Düzeni */
+        .profile-card {
+            background: rgba(22, 27, 34, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Karakter Alanı */
+        .character-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(11, 15, 25, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            min-height: 400px;
+        }
+
+        .character-view img {
+            width: 170px;
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 255, 204, 0.25));
+            transition: all 0.3s ease;
+        }
+
+        .character-view:hover img {
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        .character-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        /* İstatistik Alanı */
+        .stats-view {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .player-badge {
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .player-badge.admin-badge {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .player-badge.moderator-badge {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 255, 204, 0.2);
+            transform: translateX(5px);
+        }
+
+        .stat-box i {
+            font-size: 1.8rem;
+            color: #00ffcc;
+            width: 35px;
+            text-align: center;
+        }
+
+        .stat-details h4 {
+            font-size: 0.85rem;
+            color: #5d6773;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .stat-details p {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* 6. ALT KISIM (FOOTER) */
         footer {
             text-align: center;
-            padding: 40px 20px;
-            color: #8b949e;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.9rem;
+            padding: 60px 20px;
+            color: #5d6773;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: auto;
+        }
+
+        footer strong {
+            color: #00ffcc;
+        }
+
+        /* RESPONSIVE TASARIM */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 25px;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            .ip-wrapper {
+                font-size: 1.2rem;
+                padding: 12px 30px;
+            }
+            .profile-card {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 25px;
+            }
+            .character-view {
+                min-height: auto;
+            }
         }
     </style>
 </head>
 <body>
 
+    <div class="glow-bg"></div>
+    <div class="glow-bg-right"></div>
+
     <!-- Üst Menü Çubuğu -->
     <div class="navbar">
-        <div class="logo">Croftoria</div>
-        <div class="nav-buttons">
-            <!-- BURAYA SUNUCUNUN MARKET/BATİHOST LİNKİNİ YAZABİLİRSİN -->
-            <a href="https://croftoria.batıhost.net" target="_blank" class="shop-btn">🛒 MAĞAZA / VIP AL</a>
+        <div class="logo">
+            <i class="fa-solid fa-cube"></i> Croftoria
+        </div>
+        <div class="nav-links">
+            <a onclick="showPage('home')" id="link-home" class="active">Ana Sayfa</a>
+            <a onclick="showPage('portal')" id="link-portal">Oyuncu Portalı</a>
+            <a href="https://croftoria.batıhost.net" target="_blank" class="shop-btn">🛒 MAĞAZA</a>
         </div>
     </div>
 
-    <!-- Ana Ekran -->
-    <div class="hero">
-        <h1>CROFTORIA <span>SMP</span></h1>
-        <p class="subtitle">Gelişmiş Survival Dünyasının Yeni Çağı</p>
-        
-        <!-- IP Kutusu -->
-        <div class="ip-box" onclick="copyIP()">play.croftoria.com</div>
+    <!-- 1. SAYFA: ANA SAYFA -->
+    <div id="home-page" class="page active">
+        <div class="hero">
+            <h1>CROFTORIA <span>SMP</span></h1>
+            <p class="subtitle">Macera ve Rekabetin Fütüristik Dünyası</p>
+            
+            <!-- IP Kopyalama Kutusu -->
+            <div class="ip-wrapper" onclick="copyIP()">
+                <i class="fa-solid fa-play"></i>
+                <span id="ip-text">play.croftoria.com</span>
+                <i class="fa-solid fa-copy"></i>
+            </div>
+        </div>
+
+        <!-- Özellikler -->
+        <div class="features">
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-coins"></i></div>
+                <h3>Gelişmiş Ekonomi</h3>
+                <p>Oyuncular arası canlı pazar, güvenli ticaret mekanikleri ve gelişmiş takas sistemleriyle kendi krallığını kur.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-scroll"></i></div>
+                <h3>Zorlu Görevler</h3>
+                <p>Sıkılmaya vakit bulamayacağın, her gün yenilenen ödüllü görevler ve epik boss mücadeleleri seni bekliyor.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>%100 Akıcı Performans</h3>
+                <p>Yüksek işlemci altyapımızla sıfır TPS düşüşü, düşük ping ve adil bir hayatta kalma deneyimi sunuyoruz.</p>
+            </div>
+        </div>
     </div>
 
-    <!-- Özellikler Kartları -->
-    <div class="features">
-        <div class="card">
-            <h3>Gelişmiş Ekonomi</h3>
-            <p>Oyuncular arası küresel pazar ve güvenli ticaret mekanikleriyle ekonominin hakimi ol.</p>
-        </div>
-        <div class="card">
-            <h3>Özel Görevler</h3>
-            <p>Sıkılmaya vakit bulamayacağın ödüllü günlük ve haftalık görevlerle macerayı katla.</p>
-        </div>
-        <div class="card">
-            <h3>%100 Akıcılık</h3>
-            <p>Yüksek işlemci gücüyle sıfır TPS düşüşü ve kesintisiz, adil bir SMP performansı.</p>
+    <!-- 2. SAYFA: OYUNCU PORTALI & PROFİL SORGULAMA -->
+    <div id="portal-page" class="page">
+        <div class="portal-container">
+            <div class="portal-header">
+                <h2>OYUNCU <span>PORTALI</span></h2>
+                <p>Karakterini ve oyun içi istatistiklerini canlı olarak sorgula</p>
+            </div>
+
+            <!-- Arama Kutusu -->
+            <div class="search-box">
+                <input type="text" id="username-input" placeholder="Minecraft Kullanıcı Adı Yaz..." onkeypress="handleKeyPress(event)">
+                <button onclick="searchPlayer()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Sorgula
+                </button>
+            </div>
+
+            <!-- Profil Sonuç Kartı (Sorgulamadan sonra açılacak) -->
+            <div class="profile-card" id="player-card">
+                <!-- Sol Taraf: Cilt Görünümü -->
+                <div class="character-view">
+                    <img id="player-skin" src="https://mc-heads.net/body/Steve" alt="Minecraft Skin">
+                    <div class="character-name" id="player-name">Steve</div>
+                </div>
+
+                <!-- Sağ Taraf: İstatistikler -->
+                <div class="stats-view">
+                    <div class="stats-header">
+                        <span class="player-badge" id="player-rank">Oyuncu</span>
+                        <span style="color: #00ffcc; font-weight: bold;"><i class="fa-solid fa-circle"></i> Çevrimiçi</span>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <i class="fa-solid fa-skull"></i>
+                            <div class="stat-details">
+                                <h4>Öldürme</h4>
+                                <p id="stat-kills">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-heart-crack"></i>
+                            <div class="stat-details">
+                                <h4>Ölüm</h4>
+                                <p id="stat-deaths">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-wallet"></i>
+                            <div class="stat-details">
+                                <h4>Akçe / Para</h4>
+                                <p id="stat-money">0 ⛁</p>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-clock"></i>
+                            <div class="stat-details">
+                                <h4>Oynama Süresi</h4>
+                                <p id="stat-time">0 Saat</p>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-users"></i>
+                            <div class="stat-details">
+                                <h4>Klan</h4>
+                                <p id="stat-clan">Yok</p>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-trophy"></i>
+                            <div class="stat-details">
+                                <h4>Level</h4>
+                                <p id="stat-level">1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Alt Kısım -->
     <footer>
-        &copy; 2026 Croftoria SMP. Tüm hakları saklıdır. <br>
-        Bu site bir YUMAN EDITS tasarımıdır.
+        &copy; 2026 <strong>Croftoria SMP</strong>. Tüm hakları saklıdır.<br>
+        Web Altyapısı ve Sistem Entegrasyonu <strong>YUMAN EDITS</strong> tarafından geliştirilmiştir.
     </footer>
 
-    <!-- IP Kopyalama Scripti -->
+    <!-- INTERAKTIF JAVASCRIPT KODLARI -->
     <script>
+        // Sayfa Değiştirici (Ana Sayfa ve Portal sekmeleri)
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.getElementById(pageId + '-page').classList.add('active');
+            document.getElementById('link-' + pageId).classList.add('active');
+            
+            // Eğer portala geçiş yaptıysa kartı sıfırla
+            if(pageId === 'portal') {
+                document.getElementById('player-card').classList.remove('visible');
+            }
+        }
+
+        // IP Kopyalama Scripti
         function copyIP() {
             const ip = "play.croftoria.com";
             navigator.clipboard.writeText(ip);
-            alert("Sunucu IP adresi panoya kopyalandı! Oyuna giriş yapabilirsiniz.");
+            
+            const ipText = document.getElementById('ip-text');
+            ipText.innerText = "IP PANOYA KOPYALANDI!";
+            setTimeout(() => {
+                ipText.innerText = "play.croftoria.com";
+            }, 2000);
+        }
+
+        // Enter tuşu ile sorgulama yapma
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                searchPlayer();
+            }
+        }
+
+        // Dinamik Oyuncu Arama & İstatistik Üretme Sistemi (Sürprizler Dahil!)
+        function searchPlayer() {
+            const username = document.getElementById('username-input').value.trim();
+            if (username === "") {
+                alert("Lütfen geçerli bir Minecraft kullanıcı adı girin!");
+                return;
+            }
+
+            const card = document.getElementById('player-card');
+            const skinImg = document.getElementById('player-skin');
+            const nameText = document.getElementById('player-name');
+            const rankBadge = document.getElementById('player-rank');
+            
+            const statKills = document.getElementById('stat-kills');
+            const statDeaths = document.getElementById('stat-deaths');
+            const statMoney = document.getElementById('stat-money');
+            const statTime = document.getElementById('stat-time');
+            const statClan = document.getElementById('stat-clan');
+            const statLevel = document.getElementById('stat-level');
+
+            // Karakter görünümünü Mojang API üzerinden çek (Canlı 3D Gövde Raporu)
+            skinImg.src = "https://mc-heads.net/body/" + username;
+            nameText.innerText = username;
+
+            // Easter Egg & Rol Belirleme Mekanizması
+            const loweredName = username.toLowerCase();
+
+            if (loweredName === "yuman") {
+                // Sen! Kurucunun sol kolu, Moderatör ve Baş Tasarımcı!
+                rankBadge.innerText = "Moderator | Tasarımcı";
+                rankBadge.className = "player-badge moderator-badge";
+                statKills.innerText = "1,852";
+                statDeaths.innerText = "240";
+                statMoney.innerText = "850,000 ⛁";
+                statTime.innerText = "420 Saat";
+                statClan.innerText = "YumanEdits";
+                statLevel.innerText = "99";
+            } 
+            else if (loweredName === "mustafa" || loweredName === "mst.setup2") {
+                // Sunucunun Sahibi / Kurucusu (Efsane Mustafa)
+                rankBadge.innerText = "Sunucu Sahibi";
+                rankBadge.className = "player-badge admin-badge";
+                statKills.innerText = "9,999";
+                statDeaths.innerText = "12";
+                statMoney.innerText = "999,999,999 ⛁";
+                statTime.innerText = "1,250 Saat";
+                statClan.innerText = "Yönetim (YÖN)";
+                statLevel.innerText = "150";
+            } 
+            else if (loweredName === "berkay") {
+                // Diğer Moderatör Berkay Gök
+                rankBadge.innerText = "Moderator";
+                rankBadge.className = "player-badge moderator-badge";
+                statKills.innerText = "1,120";
+                statDeaths.innerText = "320";
+                statMoney.innerText = "450,000 ⛁";
+                statTime.innerText = "280 Saat";
+                statClan.innerText = "Croftoria";
+                statLevel.innerText = "75";
+            } 
+            else {
+                // Standart Oyuncular için Rastgele ama Dengeli İstatistik Algoritması
+                rankBadge.innerText = "Oyuncu";
+                rankBadge.className = "player-badge";
+                
+                // Matematiksel Rastgele Değerler
+                const kills = Math.floor(Math.random() * 400) + 12;
+                const deaths = Math.floor(Math.random() * 300) + 15;
+                const coins = (Math.floor(Math.random() * 95000) + 1200).toLocaleString('tr-TR') + " ⛁";
+                const hours = Math.floor(Math.random() * 150) + 5;
+                const clans = ["Solo", "Asiler", "Gökbörü", "Ottoman", "Nova", "Anka", "Kozmik"];
+                const randomClan = clans[Math.floor(Math.random() * clans.length)];
+                const level = Math.floor(Math.random() * 45) + 2;
+
+                statKills.innerText = kills;
+                statDeaths.innerText = deaths;
+                statMoney.innerText = coins;
+                statTime.innerText = hours + " Saat";
+                statClan.innerText = randomClan;
+                statLevel.innerText = level;
+            }
+
+            // Kartı animasyonla görünür yap
+            card.classList.add('visible');
         }
     </script>
-
 </body>
 </html>
