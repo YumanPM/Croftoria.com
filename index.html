@@ -8,114 +8,144 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e7eb; }
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #e5e7eb; overflow-x: hidden; }
         .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .neon-border { box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
         .hero-gradient { background: radial-gradient(circle at 50% 50%, #1e3a8a 0%, #050505 70%); }
+        .neon-border { border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .revealed { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body class="bg-[#050505] text-gray-200">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass py-4 px-8 flex justify-between items-center">
+    <nav class="fixed w-full z-50 glass py-4 px-8 flex justify-between items-center border-b border-white/10">
         <div class="text-2xl font-black uppercase tracking-tighter text-blue-500">Croftoria <span class="text-white font-light">TOWNY</span></div>
         <div class="hidden md:flex gap-8 font-medium">
             <a href="#home" class="hover:text-blue-400 transition">Anasayfa</a>
             <a href="#features" class="hover:text-blue-400 transition">Özellikler</a>
-            <a href="#stats" class="hover:text-blue-400 transition">İstatistikler</a>
-            <a href="#discord" class="hover:text-blue-400 transition">Topluluk</a>
+            <a href="#stats" class="hover:text-blue-400 transition">Profil Sorgula</a>
+            <a href="https://discord.gg/WWfxWvqbKh" target="_blank" class="hover:text-blue-400 transition">Topluluk</a>
         </div>
-        <a href="#" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-full font-bold transition">Mağaza</a>
+        <a href="#store" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-full font-bold transition shadow-lg shadow-blue-600/20">Market</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-screen flex flex-col justify-center items-center text-center p-6">
-        <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter mb-6 text-white">CROFTORIA <br><span class="text-blue-500">TOWNY</span></h1>
-        <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mb-12">Diplomasinin, ticaretin ve medeniyetin yeni durağı. Şehrini inşa et, tarihe yön ver.</p>
-        
-        <div class="group relative bg-white/5 border border-blue-500/30 p-6 rounded-2xl cursor-pointer hover:bg-blue-900/20 transition-all" onclick="copyIP()">
-            <p class="text-blue-400 text-sm mb-1 uppercase tracking-widest font-bold">Sunucu IP Adresi</p>
-            <h2 class="text-3xl font-mono font-bold text-white">play.croftoria.com</h2>
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition">Kopyalamak İçin Tıkla</div>
+    <section id="home" class="hero-gradient min-h-screen flex flex-col justify-center items-center text-center p-6 pt-20">
+        <div class="animate-fade-in">
+            <h1 class="text-6xl md:text-9xl font-black uppercase tracking-tighter mb-6 text-white">CROFTORIA <br><span class="text-blue-500">TOWNY</span></h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mb-12">Diplomasinin, ticaretin ve medeniyetin yeni durağı. Şehrini inşa et, tarihe yön ver.</p>
+            
+            <div class="group relative bg-white/5 border border-blue-500/30 p-6 rounded-2xl cursor-pointer hover:bg-blue-900/20 transition-all duration-300" onclick="copyIP()">
+                <p class="text-blue-400 text-sm mb-1 uppercase tracking-widest font-bold">Sunucu IP Adresi</p>
+                <h2 class="text-3xl font-mono font-bold text-white">play.croftoria.com</h2>
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition">Kopyalamak İçin Tıkla</div>
+            </div>
         </div>
     </section>
 
-    <!-- Features -->
     <section id="features" class="py-24 px-8 max-w-7xl mx-auto">
         <h2 class="text-4xl font-bold text-center mb-16">Neden Croftoria Towny?</h2>
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <i class="fa-solid fa-city text-4xl text-blue-500 mb-6"></i>
+            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500 group">
+                <i class="fa-solid fa-city text-4xl text-blue-500 mb-6 group-hover:scale-110 transition"></i>
                 <h3 class="text-2xl font-bold mb-4">Şehir İnşası</h3>
-                <p class="text-gray-400">Kendi sınırlarını belirle, vatandaşlarını yönet ve efsanevi bir şehir kur.</p>
+                <p class="text-gray-400">Kendi sınırlarını belirle, vatandaşlarını yönet ve efsanevi bir Towny şehri kur. Sınırlarını genişlet.</p>
             </div>
-            <!-- Card 2 -->
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <i class="fa-solid fa-scale-balanced text-4xl text-blue-500 mb-6"></i>
+            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500 group">
+                <i class="fa-solid fa-scale-balanced text-4xl text-blue-500 mb-6 group-hover:scale-110 transition"></i>
                 <h3 class="text-2xl font-bold mb-4">Gelişmiş Ekonomi</h3>
-                <p class="text-gray-400">Ticaret yap, dükkanlar aç ve Croftoria piyasasının hakimi ol.</p>
+                <p class="text-gray-400">Ticaret yap, dükkanlar aç, belediye ihalelerine katıl ve Croftoria piyasasının hakimi ol.</p>
             </div>
-            <!-- Card 3 -->
-            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500">
-                <i class="fa-solid fa-gavel text-4xl text-blue-500 mb-6"></i>
+            <div class="glass p-8 rounded-3xl hover:border-blue-500 transition duration-500 group">
+                <i class="fa-solid fa-gavel text-4xl text-blue-500 mb-6 group-hover:scale-110 transition"></i>
                 <h3 class="text-2xl font-bold mb-4">Diplomasi</h3>
-                <p class="text-gray-400">İttifaklar kur, antlaşmalar imzala ve düşmanlarını dize getir.</p>
+                <p class="text-gray-400">İttifaklar kur, antlaşmalar imzala, ticaret yolları aç ve düşmanlarını ekonomik olarak dize getir.</p>
             </div>
         </div>
     </section>
 
-    <!-- Profile Search Section -->
     <section id="stats" class="py-24 bg-blue-900/10 border-y border-white/5">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-8">Oyuncu Sorgulama</h2>
+            <h2 class="text-4xl font-bold mb-8">Oyuncu Profil Sorgulama</h2>
+            <p class="text-gray-400 mb-8">Croftoria Towny dünyasındaki istatistiklerini, para durumunu ve rütbeni anlık görüntüle.</p>
             <div class="flex gap-4 justify-center">
                 <input type="text" id="userInput" placeholder="Oyuncu Adı..." class="bg-black/40 border border-white/10 p-4 rounded-xl w-64 outline-none focus:border-blue-500 transition">
-                <button onclick="searchProfile()" class="bg-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition">Sorgula</button>
+                <button onclick="searchProfile()" class="bg-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">Sorgula</button>
             </div>
             <div id="resultBox" class="mt-10 p-8 glass rounded-3xl hidden transition-all">
-                <!-- JavaScript burayı dolduracak -->
+                <!-- Javascript ile yüklenecek -->
             </div>
         </div>
     </section>
 
-    <!-- Discord CTA -->
     <section id="discord" class="py-24 text-center px-6">
         <h2 class="text-4xl font-bold mb-8">Topluluğumuza Katıl</h2>
         <p class="text-gray-400 mb-10 max-w-md mx-auto">Sunucu haberleri, etkinlikler ve moderatör ekibiyle iletişim için Discord sunucumuza gel!</p>
-        <a href="https://discord.gg/WWfxWvqbKh" target="_blank" class="bg-[#5865F2] hover:bg-[#4752C4] px-12 py-5 rounded-2xl font-bold text-lg inline-flex items-center gap-3 transition-transform hover:scale-105">
+        <a href="https://discord.gg/WWfxWvqbKh" target="_blank" class="bg-[#5865F2] hover:bg-[#4752C4] px-12 py-5 rounded-2xl font-bold text-lg inline-flex items-center gap-3 transition-transform hover:scale-105 shadow-lg shadow-blue-500/20">
             <i class="fa-brands fa-discord text-2xl"></i> Discord'a Katıl
         </a>
     </section>
 
-    <!-- Footer -->
     <footer class="py-12 text-center border-t border-white/5 text-gray-500">
-        <p>© 2026 Croftoria Towny - Tüm Hakları Saklıdır.</p>
+        <p class="mb-4">© 2026 Croftoria Towny - Tüm Hakları Saklıdır.</p>
+        <div class="flex justify-center gap-6 text-sm">
+            <a href="#" class="hover:text-blue-400">Kurallar</a>
+            <a href="#" class="hover:text-blue-400">Destek</a>
+            <a href="#" class="hover:text-blue-400">Gizlilik</a>
+        </div>
     </footer>
 
     <script>
         function copyIP() {
             navigator.clipboard.writeText("play.croftoria.com");
-            alert("IP Adresi kopyalandı!");
+            // Toast benzeri bir geri bildirim
+            const el = document.createElement('div');
+            el.className = 'fixed bottom-10 right-10 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-xl z-50 animate-bounce';
+            el.innerText = 'IP Adresi Kopyalandı!';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
         }
 
         function searchProfile() {
             const user = document.getElementById('userInput').value;
             const res = document.getElementById('resultBox');
             if(!user) return;
+            
             res.classList.remove('hidden');
             res.innerHTML = `
-                <div class="text-center">
-                    <h3 class="text-2xl font-bold text-white mb-6">${user} - Profil Detayları</h3>
+                <div class="text-center animate-pulse">
+                    <h3 class="text-2xl font-bold text-white mb-6">${user} - Croftoria Towny Profili</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div class="bg-blue-900/20 p-4 rounded-xl"><p class="text-xs text-gray-400">RÜTBE</p><p class="text-blue-400 font-bold">Vatandaş</p></div>
-                        <div class="bg-blue-900/20 p-4 rounded-xl"><p class="text-xs text-gray-400">PARA</p><p class="text-green-400 font-bold">12,500 CRF</p></div>
-                        <div class="bg-blue-900/20 p-4 rounded-xl"><p class="text-xs text-gray-400">ŞEHİR</p><p class="text-purple-400 font-bold">Yok</p></div>
-                        <div class="bg-blue-900/20 p-4 rounded-xl"><p class="text-xs text-gray-400">SÜRE</p><p class="text-yellow-400 font-bold">42h</p></div>
+                        <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/20">
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Rütbe</p>
+                            <p class="text-blue-400 font-bold">Vatandaş</p>
+                        </div>
+                        <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/20">
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Para (CRF)</p>
+                            <p class="text-green-400 font-bold">12,500</p>
+                        </div>
+                        <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/20">
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Şehir</p>
+                            <p class="text-purple-400 font-bold">Yok</p>
+                        </div>
+                        <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/20">
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Oynama</p>
+                            <p class="text-yellow-400 font-bold">42h</p>
+                        </div>
                     </div>
                 </div>
             `;
         }
+
+        // Scroll reveal animasyonu
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('revealed');
+            });
+        });
+        document.querySelectorAll('section').forEach(s => {
+            s.classList.add('scroll-reveal');
+            observer.observe(s);
+        });
     </script>
 </body>
 </html>
